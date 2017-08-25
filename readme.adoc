@@ -1,3 +1,60 @@
+Let's set up a federation between `earth` and `mars` Kubernetes cluster on AWS.
+
+= Create hosted zones
+
+. Earth:
++
+```
+ID=$(uuidgen) && \
+   aws route53 create-hosted-zone \
+   --name earth.kubernetes-aws.io \
+   --caller-reference $ID \
+   | jq .DelegationSet.NameServers
+```
++
+. Mars:
++
+```
+ID=$(uuidgen) && \
+   aws route53 create-hosted-zone \
+   --name mars.kubernetes-aws.io \
+   --caller-reference $ID \
+   | jq .DelegationSet.NameServers
+```
++
+. Setup DNS provider
+. Make sure `dig earth.kubernetes-aws.io NS` and `dig mars.kubernetes-aws.io NS` return correct results. For example:
++
+```
+dig earth.kubernetes-aws.io NS
+
+; <<>> DiG 9.8.3-P1 <<>> earth.kubernetes-aws.io NS
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 52338
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 4
+
+;; QUESTION SECTION:
+;earth.kubernetes-aws.io.	IN	NS
+
+;; ANSWER SECTION:
+earth.kubernetes-aws.io. 3600	IN	NS	ns-1196.awsdns-21.org.
+earth.kubernetes-aws.io. 3600	IN	NS	ns-1799.awsdns-32.co.uk.
+earth.kubernetes-aws.io. 3600	IN	NS	ns-436.awsdns-54.com.
+earth.kubernetes-aws.io. 3600	IN	NS	ns-752.awsdns-30.net.
+
+;; ADDITIONAL SECTION:
+ns-436.awsdns-54.com.	162967	IN	A	205.251.193.180
+ns-752.awsdns-30.net.	161434	IN	A	205.251.194.240
+ns-1196.awsdns-21.org.	161363	IN	A	205.251.196.172
+ns-1799.awsdns-32.co.uk. 148417	IN	A	205.251.199.7
+
+;; Query time: 42 msec
+;; SERVER: 10.4.4.10#53(10.4.4.10)
+;; WHEN: Fri Aug 25 14:38:53 2017
+;; MSG SIZE  rcvd: 245
+```
+
 = Setup k8s cluster
 
 . Create a k8s cluster
@@ -5,7 +62,7 @@
 ```
 export KOPS_STATE_STORE=s3://kubernetes-aws-io
 kops create cluster \
-  cluster.k8s.local \
+  earth.kubernetes-aws.io \
   --master-count=3 \
   --master-zones us-east-1a,us-east-1b \
   --zones us-east-1a,us-east-1b \
