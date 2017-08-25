@@ -2,7 +2,7 @@ Let's set up a federation between `earth` and `mars` Kubernetes cluster on AWS.
 
 = Create hosted zones
 
-. Earth:
+. Earth hosted zone:
 +
 ```
 ID=$(uuidgen) && \
@@ -12,7 +12,7 @@ ID=$(uuidgen) && \
    | jq .DelegationSet.NameServers
 ```
 +
-. Mars:
+. Mars hosted zone:
 +
 ```
 ID=$(uuidgen) && \
@@ -57,7 +57,7 @@ ns-1799.awsdns-32.co.uk. 148417	IN	A	205.251.199.7
 
 = Setup k8s cluster
 
-. Create a k8s cluster
+. Create Earth cluster:
 +
 ```
 export KOPS_STATE_STORE=s3://kubernetes-aws-io
@@ -73,31 +73,14 @@ kops create cluster \
 . Validate:
 +
 ```
-kops validate cluster --name=cluster.k8s.local
-Validating cluster cluster.k8s.local
-
-INSTANCE GROUPS
-NAME			ROLE	MACHINETYPE	MIN	MAX	SUBNETS
-master-us-east-1a-1	Master	m3.medium	1	1	us-east-1a
-master-us-east-1a-2	Master	m3.medium	1	1	us-east-1a
-master-us-east-1b-1	Master	m3.medium	1	1	us-east-1b
-nodes			Node	t2.medium	3	3	us-east-1a,us-east-1b
-
-NODE STATUS
-NAME				ROLE	READY
-ip-172-20-39-245.ec2.internal	node	True
-ip-172-20-48-97.ec2.internal	master	True
-ip-172-20-51-1.ec2.internal	node	True
-ip-172-20-61-161.ec2.internal	master	True
-ip-172-20-69-95.ec2.internal	node	True
-ip-172-20-73-106.ec2.internal	master	True
+kops validate cluster --name=earth.kubernetes-aws.io
 ```
 +
-. Create another k8s cluster
+. Create Mars cluster
 +
 ```
 kops create cluster \
-  cluster2.k8s.local \
+  mars.kubernetes-aws.io \
   --master-count=3 \
   --master-zones us-west-1b,us-west-1c \
   --zones us-west-1b,us-west-1c \
@@ -108,26 +91,7 @@ kops create cluster \
 . Validate
 +
 ```
-kops validate cluster --name=cluster2.k8s.local
-Validating cluster cluster2.k8s.local
-
-INSTANCE GROUPS
-NAME			ROLE	MACHINETYPE	MIN	MAX	SUBNETS
-master-us-west-1b-1	Master	m3.medium	1	1	us-west-1b
-master-us-west-1b-2	Master	m3.medium	1	1	us-west-1b
-master-us-west-1c-1	Master	m3.medium	1	1	us-west-1c
-nodes			Node	t2.medium	3	3	us-west-1b,us-west-1c
-
-NODE STATUS
-NAME						ROLE	READY
-ip-172-20-36-173.us-west-1.compute.internal	master	True
-ip-172-20-40-38.us-west-1.compute.internal	master	True
-ip-172-20-59-86.us-west-1.compute.internal	node	True
-ip-172-20-62-88.us-west-1.compute.internal	node	True
-ip-172-20-81-69.us-west-1.compute.internal	master	True
-ip-172-20-92-246.us-west-1.compute.internal	node	True
-
-Your cluster cluster2.k8s.local is ready
+kops validate cluster --name=mars.kubernetes-aws.io
 ```
 
 = Setup kubefed
