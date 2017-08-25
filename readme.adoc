@@ -177,8 +177,6 @@ tar xzvf kubernetes-client-darwin-amd64.tar.gz
 ```
 kubectl config get-contexts
 CURRENT   NAME                                      CLUSTER                                   AUTHINFO                                  NAMESPACE
-          tectonic                                  cluster                                   tectonic-oidc                             
-          cluster.k8s.local                         cluster.k8s.local                         cluster.k8s.local                         
-*         cluster2.k8s.local                        cluster2.k8s.local                        cluster2.k8s.local                        
-```
+*         mars.kubernetes-aws.io                    mars.kubernetes-aws.io                    mars.kubernetes-aws.io                    
+          earth.kubernetes-aws.io                   earth.kubernetes-aws.io                   earth.kubernetes-aws.io     ```
 +
