@@ -178,5 +178,36 @@ tar xzvf kubernetes-client-darwin-amd64.tar.gz
 kubectl config get-contexts
 CURRENT   NAME                                      CLUSTER                                   AUTHINFO                                  NAMESPACE
 *         mars.kubernetes-aws.io                    mars.kubernetes-aws.io                    mars.kubernetes-aws.io                    
-          earth.kubernetes-aws.io                   earth.kubernetes-aws.io                   earth.kubernetes-aws.io     ```
+          earth.kubernetes-aws.io                   earth.kubernetes-aws.io                   earth.kubernetes-aws.io     
+```
 +
+. Setup federation control plane:
++
+```
+kubefed \
+    init \
+    interstellar \
+    --host-cluster-context=earth.kubernetes-aws.io \
+    --dns-provider=aws-route53 \
+    --dns-zone-name=kubernetes-aws.io.
+```
++
+Shows the output:
++
+```
+Creating a namespace federation-system for federation system components... done
+Creating federation control plane service..... done
+Creating federation control plane objects (credentials, persistent volume claim)... done
+Creating federation component deployments... done
+Updating kubeconfig... done
+Waiting for federation control plane to come up................................................................................. done
+Federation API server is running at: ae4cc3f4489e011e7be130eca048892d-1226070346.us-east-1.elb.amazonaws.com
+```
++
+. Create a `default` namespace (due to https://github.com/kubernetes/kubernetes/issues/33292[bug]):
++
+```
+kubectl get namespace --context=interstellar
+```
++
+. 
