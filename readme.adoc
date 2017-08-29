@@ -146,19 +146,19 @@ Validating cluster mars.kubernetes-aws.io
 
 INSTANCE GROUPS
 NAME			ROLE	MACHINETYPE	MIN	MAX	SUBNETS
-master-us-west-1b-1	Master	m3.medium	1	1	us-west-1b
-master-us-west-1b-2	Master	m3.medium	1	1	us-west-1b
-master-us-west-1c-1	Master	m3.medium	1	1	us-west-1c
-nodes			Node	t2.medium	3	3	us-west-1b,us-west-1c
+master-us-east-2a	Master	c4.large	1	1	us-east-2a
+master-us-east-2b	Master	c4.large	1	1	us-east-2b
+master-us-east-2c	Master	c4.large	1	1	us-east-2c
+nodes			Node	t2.medium	3	3	us-east-2a,us-east-2b,us-east-2c
 
 NODE STATUS
 NAME						ROLE	READY
-ip-172-20-48-129.us-west-1.compute.internal	master	True
-ip-172-20-57-83.us-west-1.compute.internal	master	True
-ip-172-20-62-211.us-west-1.compute.internal	node	True
-ip-172-20-72-51.us-west-1.compute.internal	master	True
-ip-172-20-79-160.us-west-1.compute.internal	node	True
-ip-172-20-94-88.us-west-1.compute.internal	node	True
+ip-172-20-106-173.us-east-2.compute.internal	node	True
+ip-172-20-127-244.us-east-2.compute.internal	master	True
+ip-172-20-46-104.us-east-2.compute.internal	master	True
+ip-172-20-57-155.us-east-2.compute.internal	node	True
+ip-172-20-74-86.us-east-2.compute.internal	master	True
+ip-172-20-87-118.us-east-2.compute.internal	node	True
 
 Your cluster mars.kubernetes-aws.io is ready
 ```
