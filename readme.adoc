@@ -208,7 +208,7 @@ ip-172-20-89-187.us-east-2.compute.internal    Ready     9m        v1.7.0
 ip-172-20-89-96.us-east-2.compute.internal     Ready     10m       v1.7.0
 ```
 
-= Setup kubefed
+= Setup federation
 
 . Download k8s client binary:
 +
