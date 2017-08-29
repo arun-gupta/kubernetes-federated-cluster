@@ -51,8 +51,8 @@ export KOPS_STATE_STORE=s3://kubernetes-aws-io
 kops create cluster \
   earth.kubernetes-aws.io \
   --master-count=3 \
-  --master-zones us-east-1a,us-east-1b \
-  --zones us-east-1a,us-east-1b \
+  --master-zones us-east-1a,us-east-1b,us-east-1c \
+  --zones us-east-1a,us-east-1b,us-east-1c \
   --node-count=3 \
   --yes
 ```
@@ -132,8 +132,8 @@ ns-1965.awsdns-53.co.uk. 75558	IN	A	205.251.199.173
 kops create cluster \
   mars.kubernetes-aws.io \
   --master-count=3 \
-  --master-zones us-west-1b,us-west-1c \
-  --zones us-west-1b,us-west-1c \
+  --master-zones us-east-2a,us-east-2b,us-east-2c \
+  --zones us-east-2a,us-east-2b,us-east-2c \
   --node-count=3 \
   --yes
 ```
@@ -211,3 +211,7 @@ kubectl get namespace --context=interstellar
 ```
 +
 . 
+
+== Misc
+
+. Use `aws ec2 describe-availability-zones --region=us-east-1` to find out a region with 3+ AZ
