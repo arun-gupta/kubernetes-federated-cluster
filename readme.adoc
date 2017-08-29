@@ -228,15 +228,32 @@ CURRENT   NAME                      CLUSTER                   AUTHINFO          
           earth                     earth.kubernetes-aws.io   earth.kubernetes-aws.io   
 ```
 +
-. Setup federation control plane:
+. Use `earth` as host cluster:
++
+```
+kubectl config use-context earth
+Switched to context "earth".
+```
++
+. Create RBAC role binding:
++
+```
+kubectl create \
+   clusterrolebinding \
+   admin-to-cluster-admin-binding \
+   --clusterrole=cluster-admin \
+   --user=admin
+```
++
+. Deploy the federation control plane in host cluster:
 +
 ```
 kubefed \
     init \
     interstellar \
-    --host-cluster-context=earth.kubernetes-aws.io \
+    --host-cluster-context=earth \
     --dns-provider=aws-route53 \
-    --dns-zone-name=kubernetes-aws.io.
+    --dns-zone-name=kubernetes-aws.io
 ```
 +
 Shows the output:
@@ -247,18 +264,54 @@ Creating federation control plane service..... done
 Creating federation control plane objects (credentials, persistent volume claim)... done
 Creating federation component deployments... done
 Updating kubeconfig... done
-Waiting for federation control plane to come up............................................................ done
-Federation API server is running at: aa7ca08cf8cf111e7a92b024ce8fedb0-383696866.us-east-1.elb.amazonaws.com
+Waiting for federation control plane to come up.......................................................... done
+Federation API server is running at: aadbdf9358d1411e7a4ba0a49363c58c-672820986.us-east-1.elb.amazonaws.com
 ```
 +
-. Create a `default` namespace (due to https://github.com/kubernetes/kubernetes/issues/33292[bug]):
+. Get contexts again to see the newly created namespace:
 +
 ```
-kubectl create namespace default --context=interstellar
-kubectl get namespace --context=interstellar
+kubectl config get-contexts
+CURRENT   NAME                      CLUSTER                   AUTHINFO                  NAMESPACE
+          mars                      mars.kubernetes-aws.io    mars.kubernetes-aws.io    
+          mars.kubernetes-aws.io    mars.kubernetes-aws.io    mars.kubernetes-aws.io    
+*         earth                     earth.kubernetes-aws.io   earth.kubernetes-aws.io   
+          earth.kubernetes-aws.io   earth.kubernetes-aws.io   earth.kubernetes-aws.io   
+          interstellar              interstellar              interstellar              
 ```
 +
-. What next?
+. Change the context to federation context:
++
+```
+kubectl config use-context interstellar
+```
++
+. Join `earth` cluster to the federation:
++
+```
+kubefed join \
+   earth \
+   --host-cluster-context=earth \
+   --cluster-context=earth
+```
++
+. Join `mars` cluster to the federation:
++
+```
+kubefed join \
+   earth \
+   --host-cluster-context=earth \
+   --cluster-context=earth
+```
++
+. Check status of the clusters in the federation:
++
+```
+kubectl --context=interstellar get clusters
+NAME      STATUS    AGE
+earth     Unknown   1m
+mars      Unknown   53s
+```
 
 == Delete clusters
 
