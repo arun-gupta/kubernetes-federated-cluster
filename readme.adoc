@@ -83,6 +83,26 @@ ip-172-20-76-15.ec2.internal	node	True
 
 Your cluster earth.kubernetes-aws.io is ready
 ```
++
+. Set alias for context:
++
+```
+kubectl config set-context earth --cluster=earth.kubernetes-aws.io --user=earth.kubernetes-aws.io
+Context "earth" created.
+```
++
+. Get nodes:
++
+```
+kubectl --context=earth get nodes
+NAME                            STATUS    AGE       VERSION
+ip-172-20-117-87.ec2.internal   Ready     6m        v1.7.0
+ip-172-20-125-87.ec2.internal   Ready     7m        v1.7.0
+ip-172-20-45-153.ec2.internal   Ready     8m        v1.7.0
+ip-172-20-55-15.ec2.internal    Ready     6m        v1.7.0
+ip-172-20-64-27.ec2.internal    Ready     7m        v1.7.0
+ip-172-20-76-15.ec2.internal    Ready     6m        v1.7.0
+```
 
 = Mars cluster
 
@@ -166,6 +186,26 @@ ip-172-20-89-187.us-east-2.compute.internal	node	True
 ip-172-20-89-96.us-east-2.compute.internal	master	True
 
 Your cluster mars.kubernetes-aws.io is ready
+```
++
+. Set alias for context:
++
+```
+kubectl config set-context mars --cluster=mars.kubernetes-aws.io --user=mars.kubernetes-aws.io
+Context "mars" modified.
+```
++
+. Get nodes:
++
+```
+kubectl --context=mars get nodes
+NAME                                           STATUS    AGE       VERSION
+ip-172-20-107-105.us-east-2.compute.internal   Ready     9m        v1.7.0
+ip-172-20-126-49.us-east-2.compute.internal    Ready     10m       v1.7.0
+ip-172-20-41-181.us-east-2.compute.internal    Ready     9m        v1.7.0
+ip-172-20-62-64.us-east-2.compute.internal     Ready     10m       v1.7.0
+ip-172-20-89-187.us-east-2.compute.internal    Ready     9m        v1.7.0
+ip-172-20-89-96.us-east-2.compute.internal     Ready     10m       v1.7.0
 ```
 
 = Setup kubefed
