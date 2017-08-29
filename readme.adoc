@@ -200,8 +200,8 @@ Creating federation control plane service..... done
 Creating federation control plane objects (credentials, persistent volume claim)... done
 Creating federation component deployments... done
 Updating kubeconfig... done
-Waiting for federation control plane to come up................................................................................. done
-Federation API server is running at: ae4cc3f4489e011e7be130eca048892d-1226070346.us-east-1.elb.amazonaws.com
+Waiting for federation control plane to come up............................................................ done
+Federation API server is running at: aa7ca08cf8cf111e7a92b024ce8fedb0-383696866.us-east-1.elb.amazonaws.com
 ```
 +
 . Create a `default` namespace (due to https://github.com/kubernetes/kubernetes/issues/33292[bug]):
