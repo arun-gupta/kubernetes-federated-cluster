@@ -207,10 +207,11 @@ Federation API server is running at: aa7ca08cf8cf111e7a92b024ce8fedb0-383696866.
 . Create a `default` namespace (due to https://github.com/kubernetes/kubernetes/issues/33292[bug]):
 +
 ```
+kubectl create namespace default --context=interstellar
 kubectl get namespace --context=interstellar
 ```
 +
-. 
+. What next?
 
 == Misc
 
