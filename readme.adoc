@@ -47,37 +47,39 @@ ns-1799.awsdns-32.co.uk. 148088	IN	A	205.251.199.7
 . Create cluster:
 +
 ```
-export KOPS_STATE_STORE=s3://kubernetes-aws-io
 kops create cluster \
-  earth.kubernetes-aws.io \
+  --name=earth.kubernetes-aws.io \
   --master-count=3 \
   --master-zones us-east-1a,us-east-1b,us-east-1c \
-  --zones us-east-1a,us-east-1b,us-east-1c \
   --node-count=3 \
+  --zones=us-east-1a,us-east-1b,us-east-1c \
+  --authorization=rbac \
+  --state=s3://kubernetes-aws-io \
+  --kubernetes-version=1.7.0 \
   --yes
 ```
 +
 . Validate cluster:
 +
 ```
-kops validate cluster --name=earth.kubernetes-aws.io
+kops validate cluster earth.kubernetes-aws.io --state=s3://kubernetes-aws-io
 Validating cluster earth.kubernetes-aws.io
 
 INSTANCE GROUPS
 NAME			ROLE	MACHINETYPE	MIN	MAX	SUBNETS
-master-us-east-1a-1	Master	m3.medium	1	1	us-east-1a
-master-us-east-1a-2	Master	m3.medium	1	1	us-east-1a
-master-us-east-1b-1	Master	m3.medium	1	1	us-east-1b
-nodes			Node	t2.medium	3	3	us-east-1a,us-east-1b
+master-us-east-1a	Master	m3.medium	1	1	us-east-1a
+master-us-east-1b	Master	m3.medium	1	1	us-east-1b
+master-us-east-1c	Master	c4.large	1	1	us-east-1c
+nodes			Node	t2.medium	3	3	us-east-1a,us-east-1b,us-east-1c
 
 NODE STATUS
 NAME				ROLE	READY
-ip-172-20-33-68.ec2.internal	node	True
-ip-172-20-44-92.ec2.internal	master	True
-ip-172-20-54-109.ec2.internal	master	True
-ip-172-20-74-98.ec2.internal	node	True
-ip-172-20-86-151.ec2.internal	master	True
-ip-172-20-90-85.ec2.internal	node	True
+ip-172-20-117-87.ec2.internal	node	True
+ip-172-20-125-87.ec2.internal	master	True
+ip-172-20-45-153.ec2.internal	master	True
+ip-172-20-55-15.ec2.internal	node	True
+ip-172-20-64-27.ec2.internal	master	True
+ip-172-20-76-15.ec2.internal	node	True
 
 Your cluster earth.kubernetes-aws.io is ready
 ```
@@ -130,18 +132,21 @@ ns-1965.awsdns-53.co.uk. 75558	IN	A	205.251.199.173
 +
 ```
 kops create cluster \
-  mars.kubernetes-aws.io \
+  --name=mars.kubernetes-aws.io \
   --master-count=3 \
   --master-zones us-east-2a,us-east-2b,us-east-2c \
-  --zones us-east-2a,us-east-2b,us-east-2c \
   --node-count=3 \
+  --zones=us-east-2a,us-east-2b,us-east-2c \
+  --authorization=rbac \
+  --state=s3://kubernetes-aws-io \
+  --kubernetes-version=1.7.0 \
   --yes
 ```
 +
 . Validate
 +
 ```
-kops validate cluster --name=mars.kubernetes-aws.io
+kops validate cluster mars.kubernetes-aws.io --state=s3://kubernetes-aws-io
 Validating cluster mars.kubernetes-aws.io
 
 INSTANCE GROUPS
@@ -153,12 +158,12 @@ nodes			Node	t2.medium	3	3	us-east-2a,us-east-2b,us-east-2c
 
 NODE STATUS
 NAME						ROLE	READY
-ip-172-20-106-173.us-east-2.compute.internal	node	True
-ip-172-20-127-244.us-east-2.compute.internal	master	True
-ip-172-20-46-104.us-east-2.compute.internal	master	True
-ip-172-20-57-155.us-east-2.compute.internal	node	True
-ip-172-20-74-86.us-east-2.compute.internal	master	True
-ip-172-20-87-118.us-east-2.compute.internal	node	True
+ip-172-20-107-105.us-east-2.compute.internal	node	True
+ip-172-20-126-49.us-east-2.compute.internal	master	True
+ip-172-20-41-181.us-east-2.compute.internal	node	True
+ip-172-20-62-64.us-east-2.compute.internal	master	True
+ip-172-20-89-187.us-east-2.compute.internal	node	True
+ip-172-20-89-96.us-east-2.compute.internal	master	True
 
 Your cluster mars.kubernetes-aws.io is ready
 ```
