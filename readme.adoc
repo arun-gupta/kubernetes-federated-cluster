@@ -97,7 +97,10 @@ Your cluster earth.kubernetes-aws.io is ready
 . Set alias for context:
 +
 ```
-kubectl config set-context earth --cluster=earth.kubernetes-aws.io --user=earth.kubernetes-aws.io
+kubectl config set-context \
+    earth \
+    --cluster=earth.kubernetes-aws.io \
+    --user=earth.kubernetes-aws.io
 Context "earth" created.
 ```
 +
@@ -201,7 +204,10 @@ Your cluster mars.kubernetes-aws.io is ready
 . Set alias for context:
 +
 ```
-kubectl config set-context mars --cluster=mars.kubernetes-aws.io --user=mars.kubernetes-aws.io
+kubectl config set-context \
+    mars \
+    --cluster=mars.kubernetes-aws.io \
+    --user=mars.kubernetes-aws.io
 Context "mars" modified.
 ```
 +
@@ -274,8 +280,8 @@ Creating federation control plane service..... done
 Creating federation control plane objects (credentials, persistent volume claim)... done
 Creating federation component deployments... done
 Updating kubeconfig... done
-Waiting for federation control plane to come up.......................................................... done
-Federation API server is running at: aadbdf9358d1411e7a4ba0a49363c58c-672820986.us-east-1.elb.amazonaws.com
+Waiting for federation control plane to come up ....................................................................................... done
+Federation API server is running at: a4f0f559a8dc111e786ba0a7088604ba-1703570671.us-east-1.elb.amazonaws.com
 ```
 +
 . Get contexts again to see the newly created namespace:
