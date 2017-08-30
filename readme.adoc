@@ -313,8 +313,23 @@ earth     Unknown   1m
 mars      Unknown   53s
 ```
 
-== Delete clusters
+== Cleanup
 
+
+. Unjoin `earth` cluster from federation:
++
+```
+kubefed unjoin earth --cluster-context=earth --host-cluster-context=earth
+```
++
+. Unjoin `mars` cluster from federation:
++
+```
+kubefed unjoin mars --cluster-context=earth --host-cluster-context=mars
+```
++
+. Delete clusters
++
 ```
 kops delete cluster --name=earth.kubernetes-aws.io --yes
 kops delete cluster --name=mars.kubernetes-aws.io --yes
