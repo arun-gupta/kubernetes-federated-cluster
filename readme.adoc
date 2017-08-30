@@ -1,6 +1,12 @@
+= Kubernetes Federated Cluster on AWS
+
+:toc:
+
+This repo shows how to create a federated Kubernetes cluster on Amazon Web Services using kops.
+
 Let's set up a federation between `earth` and `mars` Kubernetes cluster on AWS.
 
-= Earth cluster
+== Create Earth cluster
 
 . Create hosted zone:
 +
@@ -104,7 +110,7 @@ ip-172-20-64-27.ec2.internal    Ready     7m        v1.7.0
 ip-172-20-76-15.ec2.internal    Ready     6m        v1.7.0
 ```
 
-= Mars cluster
+== Create Mars cluster
 
 . Create hosted zone:
 +
@@ -208,7 +214,7 @@ ip-172-20-89-187.us-east-2.compute.internal    Ready     9m        v1.7.0
 ip-172-20-89-96.us-east-2.compute.internal     Ready     10m       v1.7.0
 ```
 
-= Setup federation
+== Setup federation
 
 . Download k8s client binary:
 +
