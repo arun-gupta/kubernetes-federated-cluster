@@ -299,9 +299,9 @@ kubefed join \
 +
 ```
 kubefed join \
-   earth \
+   mars \
    --host-cluster-context=earth \
-   --cluster-context=earth
+   --cluster-context=mars
 ```
 +
 . Check status of the clusters in the federation:
