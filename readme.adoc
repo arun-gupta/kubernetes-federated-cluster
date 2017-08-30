@@ -346,7 +346,7 @@ NAME       DESIRED   CURRENT   READY     AGE
 frontend   6         0         0         9m
 ```
 +
-Pods are not getting created even after 9 minutes.
+Pods are not getting created even after 9 minutes. Filed https://github.com/kubernetes/kubernetes/issues/51591.
 
 
 == Cleanup
