@@ -306,8 +306,8 @@ kubefed join \
 ```
 kubectl --context=interstellar get clusters
 NAME      STATUS    AGE
-earth     Ready     1h
-mars      Unknown   16m
+earth     Ready     4h
+mars      Ready     3h
 ```
 
 == Cleanup
