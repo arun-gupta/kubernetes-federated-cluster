@@ -332,6 +332,8 @@ This is required due to https://github.com/kubernetes/kubernetes/issues/33292.
 
 == Deploy application
 
+=== Deploy Replica Set
+
 . Deploy the Replica Set:
 +
 ```
@@ -348,6 +350,25 @@ frontend   6         0         0         9m
 +
 Pods are not getting created even after 9 minutes. Filed https://github.com/kubernetes/kubernetes/issues/51591.
 
+=== Deploy Service
+
+. Deploy the Service:
++
+```
+kubectl --context=interstellar create -f svc.yml
+```
++
+. Verify that 3 pods are created in each cluster:
++
+```
+kubectl --context=interstellar get -w rs
+NAME       DESIRED   CURRENT   READY     AGE
+frontend   6         0         0         9m
+```
++
+Similar error as above.
++
+In addition, verify that ELB is created in two different regions and an external IP address is assigned.
 
 == Cleanup
 
