@@ -2,9 +2,9 @@
 
 = Kubernetes Federated Cluster on AWS
 
-This repo shows how to create a federated Kubernetes cluster on Amazon Web Services using kops.
+This repo shows how to create a federated Kubernetes cluster on Amazon Web Services using kops. Two clusters, each with 3 master and 3 worker nodes, are created in `us-east-1` and `us-east-2`. One of the cluster is called `earth` and the other one is called `mars`. The federation is called `interstellar`.
 
-Let's set up a federation between `earth` and `mars` Kubernetes cluster on AWS.
+The clusters are created on AWS using https://github.com/kubernetes/kops/[kops].
 
 == Create clusters
 
@@ -365,7 +365,7 @@ kops delete cluster --name=earth.kubernetes-aws.io --yes
 kops delete cluster --name=mars.kubernetes-aws.io --yes
 ```
 
-== Misc
+== AWS Commands
 
-. Use `aws ec2 describe-availability-zones --region=us-east-1` to find out a region with 3+ AZ
+. Use `aws ec2 describe-availability-zones --region=us-east-1` to find out a region with 3+ AZs
 
