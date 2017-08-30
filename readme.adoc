@@ -1,12 +1,16 @@
-= Kubernetes Federated Cluster on AWS
-
 :toc:
+
+= Kubernetes Federated Cluster on AWS
 
 This repo shows how to create a federated Kubernetes cluster on Amazon Web Services using kops.
 
 Let's set up a federation between `earth` and `mars` Kubernetes cluster on AWS.
 
-== Create Earth cluster
+== Create clusters
+
+Create two clusters called `earth` and `mars`.
+
+=== Earth cluster
 
 . Create hosted zone:
 +
@@ -110,7 +114,7 @@ ip-172-20-64-27.ec2.internal    Ready     7m        v1.7.0
 ip-172-20-76-15.ec2.internal    Ready     6m        v1.7.0
 ```
 
-== Create Mars cluster
+=== Mars cluster
 
 . Create hosted zone:
 +
@@ -315,10 +319,39 @@ NAME      STATUS    AGE
 earth     Ready     4h
 mars      Ready     3h
 ```
++
+Possible bug: https://github.com/kubernetes/kubernetes/issues/51578
++
+. Create `default` namespace:
++
+```
+kubectl --context=interstellar create namespace default
+```
++
+This is required due to https://github.com/kubernetes/kubernetes/issues/33292.
+
+== Deploy application
+
+. Deploy the Replica Set:
++
+```
+kubectl --context=interstellar create -f rs.yml 
+```
++
+. Verify that 3 pods are created in each cluster:
++
+```
+kubectl --context=interstellar get -w rs
+NAME       DESIRED   CURRENT   READY     AGE
+frontend   6         0         0         9m
+```
++
+Pods are not getting created even after 9 minutes.
+
 
 == Cleanup
 
-. Unjoin `earth` and `mars` cluster from federation:
+. Unjoin `earth` and `mars` cluster from the federation:
 +
 ```
 kubefed unjoin earth --cluster-context=earth
