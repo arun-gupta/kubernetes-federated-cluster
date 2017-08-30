@@ -312,16 +312,11 @@ mars      Unknown   16m
 
 == Cleanup
 
-. Unjoin `earth` cluster from federation:
+. Unjoin `earth` and `mars` cluster from federation:
 +
 ```
-kubefed unjoin earth --cluster-context=earth --host-cluster-context=earth
-```
-+
-. Unjoin `mars` cluster from federation:
-+
-```
-kubefed unjoin mars --cluster-context=earth --host-cluster-context=mars
+kubefed unjoin earth --cluster-context=earth
+kubefed unjoin mars --cluster-context=earth
 ```
 +
 . Delete clusters
