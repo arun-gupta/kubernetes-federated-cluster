@@ -286,23 +286,20 @@ CURRENT   NAME                      CLUSTER                   AUTHINFO          
 kubectl config use-context interstellar
 ```
 +
-. Join `earth` cluster to the federation:
+. Join `earth` and `mars` cluster to the federation:
 +
 ```
 kubefed join \
    earth \
    --host-cluster-context=earth \
    --cluster-context=earth
-```
-+
-. Join `mars` cluster to the federation:
-+
-```
 kubefed join \
    mars \
    --host-cluster-context=earth \
    --cluster-context=mars
 ```
++
+`--cluster-context` defaults to cluster name
 +
 . Check status of the clusters in the federation:
 +
@@ -314,7 +311,6 @@ mars      Unknown   16m
 ```
 
 == Cleanup
-
 
 . Unjoin `earth` cluster from federation:
 +
@@ -334,7 +330,6 @@ kubefed unjoin mars --cluster-context=earth --host-cluster-context=mars
 kops delete cluster --name=earth.kubernetes-aws.io --yes
 kops delete cluster --name=mars.kubernetes-aws.io --yes
 ```
-
 
 == Misc
 
