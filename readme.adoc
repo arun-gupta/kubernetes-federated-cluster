@@ -382,8 +382,8 @@ kubefed unjoin mars --cluster-context=earth
 . Delete clusters
 +
 ```
-kops delete cluster --name=earth.kubernetes-aws.io --yes
-kops delete cluster --name=mars.kubernetes-aws.io --yes
+kops delete cluster --name=earth.kubernetes-aws.io --state=s3://kubernetes-aws-io --yes
+kops delete cluster --name=mars.kubernetes-aws.io --state=s3://kubernetes-aws-io --yes
 ```
 
 == AWS Commands
